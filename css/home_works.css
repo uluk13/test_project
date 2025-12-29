@@ -50,6 +50,7 @@
 
 .child_block {
     position: absolute;
+    left: 0;
     top: 0;
     width: 50px;
     height: 50px;
