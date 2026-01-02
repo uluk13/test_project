@@ -24,15 +24,15 @@ showBlock();
 
 tabsParent.addEventListener("click", (event) => {
   if (event.target.tagName.toLowerCase() === "button") {
-    tabs.forEach((item, index) => {
+    tabs.forEach((item, i) => {
       if (item === event.target) {
-        index = index;
+        index = i;
         hideBlocks();
         showBlock(index);
       }
     });
   }
-  stopAutoSlide
+  stopAutoSlide()
   startSlider()
 });
 
