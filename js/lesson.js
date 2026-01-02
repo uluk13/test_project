@@ -6,37 +6,17 @@ let index = 0;
 let slideInterval;
 
 const hideBlocks = () => {
-  tabBlocks.forEach((item) => {
-    item.style.display = "none";
-  });
-  tabs.forEach((item) => {
-    item.classList.remove("tab_content_item_active");
-  });
+  tabBlocks.forEach(item => item.style.display = "none");
+  tabs.forEach(item => item.classList.remove("tab_content_item_active"));
 };
 
-const showBlock = (index = 0) => {
-  tabBlocks[index].style.display = "block";
-  tabs[index].classList.add("tab_content_item_active");
+const showBlock = (i = 0) => {
+  tabBlocks[i].style.display = "block";
+  tabs[i].classList.add("tab_content_item_active");
 };
 
 hideBlocks();
-showBlock();
-
-tabsParent.addEventListener("click", (event) => {
-  if (event.target.tagName.toLowerCase() === "button") {
-    tabs.forEach((item, i) => {
-      if (item === event.target) {
-        index = i;
-        hideBlocks();
-        showBlock(index);
-      }
-    });
-  }
-  stopAutoSlide()
-  startSlider()
-});
-
-
+showBlock(index);
 
 const startSlider = () => {
   slideInterval = setInterval(() => {
@@ -47,7 +27,22 @@ const startSlider = () => {
 };
 
 const stopAutoSlide = () => {
-  if (slideInterval) clearInterval(slideInterval);
+  clearInterval(slideInterval);
 };
+
+tabsParent.addEventListener("click", (event) => {
+  if (event.target.tagName.toLowerCase() === "button") {
+    tabs.forEach((item, i) => {
+      if (item === event.target) {
+        index = i;
+        hideBlocks();
+        showBlock(index);
+      }
+    });
+
+    stopAutoSlide();
+    startSlider();   
+  }
+});
 
 startSlider();
