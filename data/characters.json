@@ -1,17 +1,17 @@
 [
   {
-    "name": "",
-    "age": 0,
-    "photo": "url"
+    "name": "Jonny Dep",
+    "age": 62,
+    "photo": "https://m.media-amazon.com/images/M/MV5BZjA3NzZiZDktZjc2My00MzY2LThhOWMtZGFjYzg4ZDI2ZWVmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
   },
   {
-    "name": "",
-    "age": 0,
-    "photo": "url"
+    "name": "Leanardo Dicaprio",
+    "age": 51,
+    "photo": "https://cdn.britannica.com/65/227665-050-D74A477E/American-actor-Leonardo-DiCaprio-2016.jpg"
   },
   {
-    "name": "",
-    "age": 0,
-    "photo": "url"
+    "name": "Bred Pitt",
+    "age": 62,
+    "photo": "https://upload.wikimedia.org/wikipedia/commons/9/90/Brad_Pitt-69858.jpg"
   }
 ]

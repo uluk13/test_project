@@ -22,37 +22,30 @@ gmailBtn.addEventListener("click", () => {
 let left = 0;
 let topPosition = 0;
 
-
 let direction = "right";
 const dvizhenieBtn = () => {
   if (direction === "right") {
     left++;
     if (left >= parentWidth) {
-      left = parentWidth; 
+      left = parentWidth;
       direction = "down";
     }
     child.style.left = left + "px";
-  }
-
-  else if (direction === "down") {
+  } else if (direction === "down") {
     topPosition++;
     if (topPosition >= parentHeight) {
       topPosition = parentHeight;
       direction = "left";
     }
     child.style.top = topPosition + "px";
-  }
-
-  else if (direction === "left") {
+  } else if (direction === "left") {
     left--;
     if (left <= 0) {
       left = 0;
       direction = "up";
     }
     child.style.left = left + "px";
-  }
-
-  else if (direction === "up") {
+  } else if (direction === "up") {
     topPosition--;
     if (topPosition <= 0) {
       topPosition = 0;
@@ -66,20 +59,21 @@ const dvizhenieBtn = () => {
 
 requestAnimationFrame(dvizhenieBtn);
 
-const timerElement = document.querySelector('.interval')
-const startBtn = document.querySelector('#start')
-const stopBtn = document.querySelector('#stop')
-const resetBtn = document.querySelector('#reset')
-let seconds = 0
-let interval = null
+const timerElement = document.querySelector(".interval");
+const startBtn = document.querySelector("#start");
+const stopBtn = document.querySelector("#stop");
+const resetBtn = document.querySelector("#reset");
+let seconds = 0;
+let interval = null;
 
 const updateTimer = (sec) => {
-  let hrs = (sec / 3600) | 0;        
+  let hrs = (sec / 3600) | 0;
   let mins = ((sec % 3600) / 60) | 0;
   let secs = sec % 60;
-  timerElement.innerHTML = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-}
-
+  timerElement.innerHTML = `${hrs.toString().padStart(2, "0")}:${mins
+    .toString()
+    .padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+};
 
 startBtn.addEventListener("click", () => {
   if (interval) return;
@@ -90,16 +84,50 @@ startBtn.addEventListener("click", () => {
   }, 1000);
 });
 
-
 stopBtn.addEventListener("click", () => {
   clearInterval(interval);
   interval = null;
 });
 
-
 resetBtn.addEventListener("click", () => {
   clearInterval(interval);
   interval = null;
   seconds = 0;
-  updateTimer(seconds);  
+  updateTimer(seconds);
 });
+
+const requestor = new XMLHttpRequest();
+requestor.open("GET", "../data/characters.json");
+requestor.setRequestHeader("Content-Type", "application/json");
+requestor.send();
+const container = document.querySelector(".characters-list");
+
+requestor.onload = () => {
+  const data = JSON.parse(requestor.response);
+
+  container.innerHTML = "";
+
+  data.forEach((person) => {
+    const card = document.createElement("div");
+    card.classList.add("character-card");
+
+    card.innerHTML = `
+      <img src="${person.photo}" alt="${person.name}">
+      <h3>${person.name}</h3>
+      <p>Age: ${person.age}</p>
+    `;
+
+    container.append(card);
+  });
+};
+
+const request2 = new XMLHttpRequest();
+
+request2.open("GET", "../data/bio.json");
+request2.setRequestHeader("Content-Type", "application/json");
+request2.send();
+
+request2.onload = () => {
+  const data = JSON.parse(request2.response);
+  console.log("BIO INFO:", data);
+};

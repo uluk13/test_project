@@ -1,0 +1,8 @@
+{
+  "name": "Ulukbek",
+  "age": 19,
+  "profession": "Frontend Developer",
+  "city": "Bishkek",
+  "skills": ["HTML", "CSS", "JavaScript"],
+  "hobby": "Football"
+}
