@@ -110,7 +110,6 @@ requestor.onload = () => {
   data.forEach((person) => {
     const card = document.createElement("div");
     card.classList.add("character-card");
-
     card.innerHTML = `
       <img src="${person.photo}" alt="${person.name}">
       <h3>${person.name}</h3>
