@@ -99,14 +99,14 @@ let todosId = 1;
 
 const fetchTodos = (id) => {
   fetch(`${todos_api}/${id}`)
-    .then(response => {
-      if (response.status !== 200){
+    .then((response) => {
+      if (response.status !== 200) {
         card.innerHTML = `  <p style="color: red;">Error occured</p>`;
-      }else{
+      } else {
         return response.json();
       }
     })
-    .then(data => {
+    .then((data) => {
       const { id, title, completed } = data;
       const color = completed ? "green" : "orange";
       card.style.borderColor = `2px solid ${color}`;
@@ -115,8 +115,8 @@ const fetchTodos = (id) => {
         <p>Title: ${data.title}</p>
         <p>Status: ${data.completed ? "finished" : "pending"}</p>
       `;
-    })
-}
+    });
+};
 
 fetchTodos(todosId);
 
@@ -128,8 +128,12 @@ btnNext.addEventListener("click", () => {
   fetchTodos(todosId);
 });
 
-btnPrev.addEventListener('click', () => {
+btnPrev.addEventListener("click", () => {
   todosId--;
   if (todosId < 1) todosId = 200;
-  fetchTodos(todosId)
-})
+  fetchTodos(todosId);
+});
+
+fetch("https://jsonplaceholder.typicode.com/posts")
+  .then((response) => response.json())
+  .then((data) => console.log(data));
