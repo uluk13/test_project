@@ -89,3 +89,47 @@ const converter = (element) => {
 converter(somInput);
 converter(usdInput);
 converter(euroInput);
+
+const btnNext = document.querySelector("#btn-next");
+const btnPrev = document.querySelector("#btn-prev");
+const card = document.querySelector(".card");
+
+const todos_api = "https://jsonplaceholder.typicode.com/todos";
+let todosId = 1;
+
+const fetchTodos = (id) => {
+  fetch(`${todos_api}/${id}`)
+    .then(response => {
+      if (response.status !== 200){
+        card.innerHTML = `  <p style="color: red;">Error occured</p>`;
+      }else{
+        return response.json();
+      }
+    })
+    .then(data => {
+      const { id, title, completed } = data;
+      const color = completed ? "green" : "orange";
+      card.style.borderColor = `2px solid ${color}`;
+      card.innerHTML = `
+        <h3>ID ${data.id}</h3>
+        <p>Title: ${data.title}</p>
+        <p>Status: ${data.completed ? "finished" : "pending"}</p>
+      `;
+    })
+}
+
+fetchTodos(todosId);
+
+btnNext.addEventListener("click", () => {
+  todosId++;
+
+  if (todosId > 200) todosId = 1;
+
+  fetchTodos(todosId);
+});
+
+btnPrev.addEventListener('click', () => {
+  todosId--;
+  if (todosId < 1) todosId = 200;
+  fetchTodos(todosId)
+})
