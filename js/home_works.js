@@ -96,37 +96,55 @@ resetBtn.addEventListener("click", () => {
   updateTimer(seconds);
 });
 
-const requestor = new XMLHttpRequest();
-requestor.open("GET", "../data/characters.json");
-requestor.setRequestHeader("Content-Type", "application/json");
-requestor.send();
 const container = document.querySelector(".characters-list");
 
-requestor.onload = () => {
-  const data = JSON.parse(requestor.response);
+const loadCharacters = async () => {
+  try {
+    const response = await fetch("../data/characters.json");
 
-  container.innerHTML = "";
+    if (!response.ok) {
+      throw new Error("Failed to load characters");
+    }
 
-  data.forEach((person) => {
-    const card = document.createElement("div");
-    card.classList.add("character-card");
-    card.innerHTML = `
-      <img src="${person.photo}" alt="${person.name}">
-      <h3>${person.name}</h3>
-      <p>Age: ${person.age}</p>
-    `;
+    const data = await response.json();
 
-    container.append(card);
-  });
+    container.innerHTML = "";
+
+    data.forEach((person) => {
+      const card = document.createElement("div");
+      card.classList.add("character-card");
+
+      card.innerHTML = `
+        <img src="${person.photo}" alt="${person.name}">
+        <h3>${person.name}</h3>
+        <p>Age: ${person.age}</p>
+      `;
+
+      container.append(card);
+    });
+  } catch (error) {
+    console.error("Error loading characters:", error);
+  }
 };
 
-const request2 = new XMLHttpRequest();
+loadCharacters();
 
-request2.open("GET", "../data/bio.json");
-request2.setRequestHeader("Content-Type", "application/json");
-request2.send();
 
-request2.onload = () => {
-  const data = JSON.parse(request2.response);
-  console.log("BIO INFO:", data);
+const loadBio = async () => {
+  try {
+    const response = await fetch("../data/bio.json");
+
+    if (!response.ok) {
+      throw new Error("Failed to load bio");
+    }
+
+    const data = await response.json();
+    console.log("BIO INFO:", data);
+
+  } catch (error) {
+    console.error("Error loading bio:", error);
+  }
 };
+
+loadBio();
+
